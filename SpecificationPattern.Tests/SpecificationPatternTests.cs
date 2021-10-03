@@ -144,17 +144,16 @@ namespace SpecificationPattern.Tests
 
 
         [Fact]
-        public void Should_return_only_good_rated_or_all_ages_movies()
+        public void Should_return_only_all_ages_and_rated_as_not_bad_movies()
         {
             // Arrange
-            Expression<Func<Movie, bool>> expression = 
-                m => m.Rating > 5 && m.MpaaRating == MpaaRating.G;
+            var specification = new ForAllAgesAndNotBadRatingSpecification();
 
             // Act
-            var output = _repository.Find(expression);
+            var output = _repository.Find(specification);
 
             // Assert
-            output.Should().HaveCount(expected: 2);
+            output.Should().BeEmpty();
         }
     }
 }
